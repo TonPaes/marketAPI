@@ -13,7 +13,8 @@ const orderRoutes = require('./api/routes/orders');
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
+//app.use(express.json());                  //using the express framework to deal with json data
+//app.use(express.urlencoded({ extended:false }));
 app.use('/products', productRoutes);
 app.use('/orders',  orderRoutes);
 

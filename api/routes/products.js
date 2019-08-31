@@ -2,12 +2,17 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-    res.sendStatus(418);
+    res.sendStatus(200);
 });
 
 router.post('/', (req, res, next)=> {
+    const product = {
+        name : req.body.name,
+        price : req.body.price
+    };
     res.status(201).json({
-        message : 'Handling post request from products.js'
+        message : 'Handling post request from products.js',
+        product : product
     });
 });
 
@@ -18,6 +23,7 @@ router.get('/:productId', (req, res, next) => {
         res.status(200).json({
             message : 'You requested a special product'
         });
+
     else {
         res.status(200).json({
             message : 'You requested the ' + id + ' product'
@@ -26,14 +32,16 @@ router.get('/:productId', (req, res, next) => {
 });
 
 router.patch('/:productId', (req, res, next) => {
+    const id = req.params.productId;
     res.status(200).json({
-        message : 'Product updated'
+        message : 'Product ' + id + ' updated'
     });
 });
 
 router.delete('/:productId', (req, res, next) => {
+    id = req.param.productId;
     res.status(200).json({
-        message : 'Product deleted'
+        message : 'Product ' + productId + 'deleted.'
     });
 });
 
