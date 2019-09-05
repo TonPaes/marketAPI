@@ -1,21 +1,35 @@
-class ForEach {
-    public static void main(String[] args) {
-        {
-            int[] marks = { 125, 132, 95, 116, 110 };
+@RestController
+@RequestMapping("/v1/restaurants")
 
-            int hightest_mark = maximum(marks);
-            System.out.println(hightest_mark);
-        }
+public class RestaurantController{
+    
+    protected Logger logger = Logger.getLogger(RestaurantController.class.getName());
+    protected RestaurantService restaurantService;
+
+    @Autowired
+    RestaurantController( RestaurantService restaurantService){
+        this.restaurantService = restaurantService;
     }
 
-    public static int maximum(int[] marks) {
-        int max = marks[0];
+    
+    @RequestMapping( method = RequestMethod.GET)
+    public ResponseEntity<Collection<Restaurant>> findByName(@RequestParam("name") String name){
+        
+        logger.info( String.format("Restaurant-service findByName() invoked:{} for {}",
+            restaurantService.getClass.getName(name)));
+        
+        name = name.trim().toLowerCase();
+        Collection<Restaurant> restaurants;
 
-        for (int num : marks) {
-            if (max < num)
-                max = num;
+        try {
+            restaurants = restaurantService.findByName();
+        } catch (Exception e) {
+            logger.log( level.warning, "Internal Error Raised by", e);
+            return new ResponseEntity <Collection <Restaurant>>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        return restaurants.size() > 0 ? new ResponseEntity <Collection <Restaurant>>(restaurants, HttpStatus.OK)
+            : new ResponseEntity<Collection <Restaurant>>(HttpStatus.NO_CONTENT);
 
-        return max;
+        )
     }
 }
