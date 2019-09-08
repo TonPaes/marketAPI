@@ -31,15 +31,20 @@ public class RestaurantController {
 
     }@RequestMapping(value=/{restaurant_id},method=RequestMethod.GET)
 
-    public ResponseEntity<Collection<restaurant>> findById(@ PathVariable("restaurant_id") String id){
-        logger.info(string.format("restaurant-service find by ID invoked By {}"), restaurantService.getClass());
-        id = id.trim();
+    public ResponseEntity<Collection<Restaurant>> findById(@ PathVariable("restaurant_id") String id){
+        
+        logger.info(string);
         Entity restaurant;
         
-        try{
-            restaurant = restaurantService.findById(id);
+        try{  
+            restarant = restaurantService.findById(id); 
         }catch(Exception e){
-            
+            logger.log(level.SEVERE, "Exception raised findById REST call", e);
+            return new ResponseEntity<Entity>(HttpStatus.INTERNAL_SERVER_ERROR);    
         }
+        return restaurant != null ? new ResponseEntity<Entity>(restaurant, HttpStatus.OK)
+            : new ResponseEntity<Entity>(HttpStatus.NO_CONTENT);
+
+
     }
 }
