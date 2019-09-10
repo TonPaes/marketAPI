@@ -29,8 +29,8 @@ public class RestaurantController {
         return restaurants.size() > 0 ? new ResponseEntity<Collection<Restaurant>>(restaurants, HttpStatus.OK)
                 : new ResponseEntity<Collection<Restaurant>>(HttpStatus.NO_CONTENT);
 
-    }@RequestMapping(value=/{restaurant_id},method=RequestMethod.GET)
-
+    }
+    @RequestMapping(value=/{restaurant_id},method=RequestMethod.GET)
     public ResponseEntity<Collection<Restaurant>> findById(@ PathVariable("restaurant_id") String id){
         
         logger.info(string);
@@ -47,4 +47,7 @@ public class RestaurantController {
 
 
     }
-}
+    @RequestMapping(method=RequestMethod.POST)
+    public ResponseEntity<Collection<Restaurant>> 
+
+} 
